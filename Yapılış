@@ -1,0 +1,48 @@
+from tkinter import *
+from tkinter import messagebox
+
+roman = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']
+decimal = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
+
+
+
+def goster():
+    def dec2roman(number):
+        romanvalue = ("")
+        if type(number) == float:
+            integer,fractor = str(number).split('.')
+            integer = int(integer)
+            while len(fractor) > 3:
+                fra = list(fractor)
+                fra.pop()
+                fractor = ("").join(fra)
+            fractor = int(fractor)
+            return dec2roman(integer)+('.')+dec2roman(fractor)
+        for i, d in enumerate(decimal):
+            while number >= d:
+                number -= d
+                romanvalue += roman[i]
+        return romanvalue
+    selam = e1.get()
+    messagebox.showinfo("Sınav", dec2roman(int(selam)))
+
+
+pencere = Tk()
+pencere.title("Sınav")
+pencere.geometry("400x300")
+pencere.resizable(width=False,height=False)
+uygulama = Frame(pencere)
+uygulama.grid()
+
+
+l1 = Label(uygulama,text="Sayıyı girin :")
+l1.grid()
+
+e1 = Entry(uygulama,bd=3)
+e1.grid(padx=110,pady=3)
+
+buton = Button(uygulama,text="Basın sonucu görün",width=20,height=5,command=goster)
+buton.grid(padx=110,pady=80)
+
+pencere.mainloop()
+
